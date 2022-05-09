@@ -56,6 +56,7 @@
 									<i class="fa fa-angle-left pull-right"></i>
 								</a>
 								<ul class="treeview-menu">
+									<li><a href="{{ url('/item') }}"><i class="fa fa-angle-right"></i> Items</a></li>
 									<li><a href="{{ url('/group') }}"><i class="fa fa-angle-right"></i> Item Group</a></li>
 									<li><a href="{{ url('/subgroup') }}"><i class="fa fa-angle-right"></i> Item Subgroup</a></li>
 									<li><a href="{{ url('/Company') }}"><i class="fa fa-angle-right"></i> Item Brand / Company</a></li>

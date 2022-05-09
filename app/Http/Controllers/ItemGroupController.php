@@ -8,11 +8,10 @@ use App\Models\ItemGroup;
 class ItemGroupController extends Controller
 {
     //
-
     public function  addGroupIteam()
     {  
-       $groupitems=ItemGroup::all();
-       return view('master.itemGroup',compact('groupitems'));
+       $groupitems=ItemGroup::orderBy("id","desc")->where('status','0')->take(10)->get();
+       return view('groupitem.itemGroup',compact('groupitems'));
     }
     public function  groupitemstore(Request $request)
     {   
@@ -24,45 +23,55 @@ class ItemGroupController extends Controller
             return back()->with('group_updated','Group Item  is successfully updated');
 
         }
-        $request->validate(['groupName' => 'required']);
-        $group = new ItemGroup();
-        $group->groupName =$request->groupName;      
-        $group->save();
-        return redirect()->back()->with('group_added','Group Item   added successfully');      
+        else
+        {
+            $request->validate(['groupName' => 'required|unique:item_groups']);
+            $group = new ItemGroup();
+            $group->groupName =$request->groupName;      
+            $group->save();
+            $groupitems=ItemGroup::orderBy("id","desc")->take(10)->where('status','0')->get();
+
+            return redirect()->back()->with('group_added','Group Item added successfully');   
+            //return redirect('/group',compact('groupitems'))->with('group_added','Group Item added successfully'); 
+        }
+            
+
+
+
     }
  
     public function groupitemedit($id)
     { 
-        $groupitems = ItemGroup::all();
+        $groupitems=ItemGroup::orderBy("id","desc")->where('status','0')->take(10)->get();
         $group=ItemGroup::FindorFail($id);       
-        return view('master.itemGroup', compact('group','groupitems'));
+        return view('groupitem.itemGroup', compact('group','groupitems'));
     }
     public function UpdateGroup(Request $request)
     {      
+        $groupitems=ItemGroup::orderBy("id","desc")->take(10)->get();
         $group=ItemGroup::find($request->id);      
         $group->groupName=$request->groupName;    
         $group->update();
-        return back()->with('group_updated','Group Item  is successfully updated');
+        return view('groupitem.itemGroup',compact('groupitems'))->with('group_updated','Group Item  is successfully updated');
     }
     public function DeleteGroup($id)
-    {
-        $group =ItemGroup::find($id);       
-        $group->delete();
-         return back()->with('Group_delete','Group Item delete is delete successfully');
+    {   
+          $group=ItemGroup::find($id);  
+         $group ->status =1;    
+          $group->update();
+          return back()->with('Group_delete','Group Item delete is delete successfully');
 
     }
     public function SearchGroup(Request $request)
-    {
+    {  
+      
+        $request->validate([
+            'search' => 'required',        
+          ]);
+        $search=$request->search;      
+        $groupitems=ItemGroup::where('groupName', 'LIKE', '' . $search . '%' )->where('status','0')->take(10)->get();          
+        return view('groupitem.itemGroup',compact('groupitems'));
 
-      $groupitems = ItemGroup::all();
-       $search=$request->search;
-       $searches =ItemGroup::where ( 'groupName', 'LIKE', '%' . $search . '%' )->get();   
-       if(count ($searches ) > 0)
-          return view('master.itemGroup',compact('searches',));
-         else 
-      return view('master.itemGroup')->with('searches','data not found please try again');
-    	
-         
     
      
     }

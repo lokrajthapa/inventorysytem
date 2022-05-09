@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemGroupController;
 use App\Http\Controllers\ItemSubGroupController;
 use App\Http\Controllers\CompanyController;
-
-
+use App\Http\Controllers\InventoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,38 +30,66 @@ Route::get('/stockin', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
+// Route::get('/item', function () {
+//     return view('items.item');
+// });
 
 //group items
 Route::get('/group',[ItemGroupController::class,'addGroupIteam']);
+//Route::get('/item',[ItemGroupController::class,'addGroupIteam']);
+
 Route::post('/Gitemstore',[ItemGroupController::class,'groupitemstore']);
 Route::get('/edit-groupitem/{id}',[ItemGroupController::class,'groupitemedit']);
 Route::post('/update-groupitem',[ItemGroupController::class,'UpdateGroup'])->name('groupitem.update');
 Route::get('/delete-groupitem/{id}',[ItemGroupController::class,'DeleteGroup']);
-Route::post('/searchgroup',[ItemGroupController::class,'SearchGroup']);
+Route::get('/searchgroup',[ItemGroupController::class,'SearchGroup']);
 
 
 //subgroup items
-Route::get('/subgroup',[ItemSubGroupController::class,'addsubgroup']);
+Route::get('/subgroup',[ItemSubGroupController::class,'addsubgroup'])->name('subgroup');
 Route::get('/subgroup/{id}',[ItemSubGroupController::class,'subgroupitemedit']);
 
-Route::post('/subgroupstore',[ItemSubGroupController::class,'subgroupstore']);
+
+Route::post('/subgroup/subgroupstore',[ItemSubGroupController::class,'subgroupstore']);
 //Route::get('/edit-subgroupitem/{id}',[ItemSubGroupController::class,'subgroupitemedit']);
 Route::post('/update-subgroupitem',[ItemSubGroupController::class,'UpdateSubGroup'])->name('subgroupitem.update');
 Route::get('/delete-subgroupitem/{id}',[ItemSubGroupController::class,'DeleteSubGroup']);
-Route::get('/searchsubgroup',[ItemSubGroupController::class,'SearchGroup']);
+Route::get('/searchsubgroup',[ItemSubGroupController::class,'SearchSubGroup']);
 Route::get('/selectgroupitem/{id}',[ItemSubGroupController::class,'selectgroupitem']);
-
+Route::get('/searchdata',[ItemSubGroupController::class,'SearchsubGroupitem']);
 Route::post('/searchsubgroupitems',[ItemSubGroupController::class,'SearchsubGroupitem']);
-
-
 //company 
 Route::get('/Company',[CompanyController::class,'addcompany']);
+//Route::get('/Company/{id}',[CompanyController::class,'addcompany']);
+
 Route::post('/Companystore',[CompanyController::class,'companystore']);
 Route::get('/edit-Company/{id}',[CompanyController::class,'companyedit']);
 Route::post('/update-Company',[CompanyController::class,'UpdateCompany'])->name('company.update');
 Route::get('/delete-Company/{id}',[CompanyController::class,'DeleteCompany']);
+Route::get('/searchcompany',[CompanyController::class,'Searchcompany']);
 
-Route::post('/searchcompany',[ItemSubGroupController::class,'Searchcompany']);
+//inventorydetails
+// Route::get('/item', function () {
+//        return view('items.item');
+// });
+
+// Route::get('/add-item', function () {
+//     return view('items.item');
+// });
+//for invetory setting
+Route::get('/item',[InventoryController::class,'item']);
+Route::get('/additemdetails',[InventoryController::class,'additemdetails']);
+Route::get('/additemunitdetails/{id?}',[InventoryController::class,'additemunitdetails']);
+Route::post('/itemsDetailsStore',[InventoryController::class,'itemsdetailsStore']);
+Route::get('/itemsDetailsEdit/{id}',[InventoryController::class,'itemsDetailsEdit']);
+
+//for inventory setting unit details  
+Route::post('/inventorysettingStore',[InventoryController::class,'inventorysettingStore']);
+//Route::get('/searchunititemdetails',[InventoryController::class,'searchunititemdetails']);
+
+Route::get('/searchitemsetting',[InventoryController::class,'searchitemsetting']);
+
+Route::get('/delete-itemsDetails/{id}',[InventoryController::class,'deleteitemsDetails']);
 
 
 
@@ -87,13 +114,7 @@ Route::post('/searchcompany',[ItemSubGroupController::class,'Searchcompany']);
 
 
 
-///trial
 
-Route::get('/add-branch',[BranchController::class,'Addbranch'])->name('branch');
-Route::Post('/add-branch',[BranchController::class,'BranchStore'])->name('branch.store');
-Route::get('/all-branch',[BranchController::class,'branches']);
-Route::get('/edit-branch/{id}',[BranchController::class,'EditBranch']);
-Route::post('/update-branch',[BranchController::class,'UpdateBranch'])->name('branch.update');
-Route::get('/delete-branch/{id}',[BranchController::class,'Delelebranch']);
-//trial end
+
+
 

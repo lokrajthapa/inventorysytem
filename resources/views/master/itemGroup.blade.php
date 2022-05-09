@@ -2,7 +2,6 @@
 @section('content')
 <div id="page-wrapper">
     <div class="main-page">
-
         <div class="forms">
             <div class=" form-grids row form-grids-right">
                 <div class="widget-shadow " data-example-id="basic-forms">
@@ -24,9 +23,9 @@
                      @endif
                         <form class="form-horizontal" action="{{ url('/Gitemstore')}}" method="POST">
                             @csrf
-                            <input type="hidden" name="group_idEdit" id="group_idEdit" value="{{ $group->id }}"> 
+                            <input type="hidden" name="group_idEdit" id="group_idEdit" value="{{ @$group->id }}"> 
                             <div class="form-group"> <label for="Group Item" class="col-sm-2 control-label">Enter Group </label>
-                                <div class="col-sm-9"> <input type="text"   value="{{$group->groupName }}" name="groupName" class="form-control" id="" placeholder="Enter Group Item"> </div>
+                                <div class="col-sm-9"> <input type="text"   value="{{ @$group->groupName }}" name="groupName" class="form-control" id="" placeholder="Enter Group Item"> </div>
                             </div>
                            
                             <div class="col-sm-offset-2"> <button type="submit" class="btn btn-default">Submit</button> </div>
@@ -73,8 +72,8 @@
                     <td>{{ $item->groupName }}</td>
                     <td>{{ $item->status }}</td>
                     <td>
-                        <a href="/edit-groupitem/{{$item->id}}" class="btn btn-info" > <i class="fas fa-edit">Edit </i></a>                        
-                        <a href="/delete-groupitem/{{$item->id}}" class="btn btn-danger" onlick="ConfirmDelete()" >  <i class="fa fa-refresh">Delete</i>  </a> </button>
+                        <a href="{{ url('/edit-groupitem/{$item->id}') }}" class="btn btn-info" > Edit </a>                        
+                        <a href="/delete-groupitem/{{$item->id}}" class="btn btn-danger" onlick="ConfirmDelete()" >  Delete </a> </button>
 
                     </td>             
                 </tr>

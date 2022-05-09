@@ -13,76 +13,28 @@ class ItemSubGroupController extends Controller
     //
     public function addsubgroup()
     {
-        $subgroupitems=itemSubGroup::with('ItemGroup')->orderBy('id','DESC')->take(10)->get();
+        $subgroupitems=itemSubGroup::with('ItemGroup')->orderBy('id','DESC')->where('status','0')->take(10)->get();
+      
         return view('subgroupitem.add-subgroup',compact('subgroupitems'));
     }
 
-    public function SearchGroup(Request $request)
+    public function SearchSubGroup(Request $request)
     {  
-
-        // $data = array(
-        //     'table_data'=>'haha',
-        //     'total_data'=>'lado'
-        // );
-        // echo json_encode($data);
-
-
-
-
+    
         if($request->ajax())
         {  
            // dd('request is submitted');
-            $query= $request->get('query');
-            if($query !='')
+            $searchkey= $request->get('subgroupName');
+            $groupId= $request->get('groupId');
+            if($searchkey !='')
             {
-                $data =ItemGroup::where ( 'groupName', 'LIKE', '' . $query . '%' )->orderBy('groupName','desc')->get();    
+                $data=itemSubGroup::where ( 'subGroupName', 'LIKE', '' . $searchkey . '%' )->where ( 'itemgroup_id', '=', $groupId )->take(10)->get();    
             }
             
         }
-        // //$total_row= $data->count();
-
-        // if($total_row>0)
-        // {
-        //    foreach($data as $row )
-        //    { 
-
-
-        //        $output='<tr>
-        //       <td>
-        //          '.$row->CustomerName.'
-        //        </td>
-                  
-            
-        //        </tr>';
-        //    }
-
-        //    return 'you are right path';
-
-        // }
-        // else
-        // {
-        //     $output='<tr> 
-        //     <td algin="center" colspan="5">No data found </td>
-        //     </tr>';
-        //     return 'you are not in wirrdfsdsadf';
-        // }
-        // $data = array(
-        //     'table_data'=>$output,
-        //     'total_data'=>$total_data
-        // );
+ 
         return json_encode($data);
 
-    //     $subgroupitems=itemSubGroup::with('ItemGroup')->get(); 
-       
-
-    //    $search=$request->search;
-    //    $searches =ItemGroup::where ( 'groupName', 'LIKE', '%' . $search . '%' )->get();   
-    //    if(count ($searches ) > 0)
-    //       return view('subgroupitem.add-subgroup',compact('searches','subgroupitems'));
-    //      else 
-    //   return view('subgroupitem.add-subgroup')->with('searches ','Group Item   added successfully');
-    	
-         
     
      
     }
@@ -97,9 +49,11 @@ class ItemSubGroupController extends Controller
 
     public function subgroupstore(Request $request)
     {   
-        if($request->itemgroup_id)
+     if($request->itemgroup_id!="" && $request->itemSubgroup_idEdit=="")
         {      
-        $request->validate(['subGroupName' => 'required','itemgroup_id'=>'required']);
+        $request->validate(['subGroupName' => 'required|unique:item_sub_groups',
+                        'itemgroup_id'=>'required'
+                                         ]);
         $subgroup = new itemSubGroup();
         $subgroup->subGroupName =$request->subGroupName;      
         $subgroup->itemgroup_id =$request->itemgroup_id;      
@@ -107,27 +61,37 @@ class ItemSubGroupController extends Controller
         return redirect()->back()->with('group_added','Sub Group Item   added successfully');  
         
        }
-       elseif( $request->itemgroup_id && $request->itemgroup_idEdit)
-       {
-            $subgroup=itemSubGroup::find($request->id);      
-            $subgroup->subGroupName=$request->subGroupName;      
-            $subgroup->itemgroup_id=$request->itemgroup_idEdit;    
+    elseif( $request->itemgroup_id!="" && $request->itemSubgroup_idEdit!="")
+       {     
+           $request->validate(['subGroupName' => 'required',
+                                'itemgroup_id'=>'required'
+                           ]);
+     
+                         
+
+            $subgroup=itemSubGroup::find($request->itemSubgroup_idEdit);      
+            $subgroup->subGroupName=$request->subGroupName;     
+            $subgroup->itemgroup_id=$request->itemgroup_id;    
             $subgroup->update();
             return redirect()->back()->with('subgroup_updated','Group Item  is successfully updated');
        }
-       else{
-
+           else{      
+                return redirect()->back()->with('selectgroup','Please select the  Group first!');
        }
     
     }
 
     public function subgroupitemedit($id)
     {    
-        $group=ItemGroup::FindorFail($id);       
-        $subgroup=itemSubGroup::FindorFail($id);  
-        $subgroupitems=itemSubGroup::with('ItemGroup')->orderBy('id','DESC')->take(10)->get();
+        //$group=ItemGroup::FindorFail($id);       
+      
+       $requestid = request()->route('id');
+       $separatedid = explode("-", $requestid);
+        $subgroup=itemSubGroup::FindorFail($separatedid[0]); 
+       
+        $subgroupitems=itemSubGroup::with('ItemGroup')->where('status',0)->orderBy('id','DESC')->take(10)->get();
         //dd($subgroup);
-        return view('subgroupitem.add-subgroup', compact('group','subgroup','subgroupitems'));
+        return view('subgroupitem.add-subgroup', compact('subgroupitems','subgroup'));
     }
 
     // public function UpdateSubGroup(Request $request)
@@ -142,24 +106,26 @@ class ItemSubGroupController extends Controller
 
     public function DeleteSubGroup($id)
     {
-        $subgroup =itemSubGroup::find($id);       
-        $subgroup->delete();
-        return back()->with('subGroup_delete','Group Item delete is delete successfully'); 
+       
+
+
+        $subgroup  =itemSubGroup::find($id);  
+        $subgroup ->status =1;    
+        $subgroup->update();
+         return back()->with('subGroup_delete','Group Item delete is delete successfully');
     }
 
-    public function SearchsubGroupitem()
-    {
-        $search=$request->search;
-        $searches =itemSubGroup::where ( 'subGroupName', 'LIKE', '%' . $search . '%' )->get();   
-        if(count ($searches ) > 0)
-           return view('subgroupitem.add-subgroup',compact('searches',));
-          else 
-       return view('subgroupitem.add-subgroup')->with('searches','data not found please try again');
-         
-          
-     
-      
-     
+    public function SearchsubGroupitem(Request $request)
+    {   
+       // dd($request->all());
+        $query= $request->search;
+        $search= $query;
+        $subgroupitems =itemSubGroup::with('ItemGroup')->where( 'subGroupName', 'LIKE', '' . $search .'%' )->where('status','0')->get();     
+        return view('subgroupitem.add-subgroup',compact('subgroupitems'));
+
+
+        // return json_encode($subgroupitems);
+       
     }
 
 
