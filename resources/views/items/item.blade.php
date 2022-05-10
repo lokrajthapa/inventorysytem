@@ -387,7 +387,7 @@
                                 <form class="form-horizontal" action="{{ url('itemsDetailsStore') }}" method="POST">
                                     @csrf
                                     <div class="form-group">
-                                        <input type="hidden" value="{{ @$itemsdetail->id }}" name="itemsdetailstoreid">
+                                        <input type="hidden" value="{{ @$itemsdetail->id }}" name="itemEditId">
                                         <label for="for ItemName" class="col-sm-2 control-label">
                                             Item Name
                                         </label>
@@ -505,33 +505,19 @@
                                         <label for="for ItemName" class="col-sm-2 control-label">
                                             Company
                                         </label>
-                                        @if (\Request::is('additemdetails'))
-                                            <div class="col-sm-4">
-                                                <input type="number" name="company_id" class="form-control"
-                                                    data-toggle="modal" data-target="#" placeholder="Select the company"
-                                                    id="company_id" value="{{ @$itemsdetail->company_id }}">
 
-                                                @error('company_id')
-                                                    <p style="margin: 5px;">
-                                                    <div class="alert alert-danger mt-1">{{ $message }}</div>
-                                                    </p>
-                                                @enderror
-                                            </div>
-                                        @else
-                                            <div class="col-sm-4">
-                                                <input type="hidden" name="company_id" class="form-control"
-                                                    data-toggle="modal" data-target="#" placeholder="Select the company"
-                                                    id="company_id" value="{{ @$itemsdetail->company_id }}">
-                                                <input type="text" class="form-control" data-toggle="modal"
-                                                    data-target="#" placeholder="Select the company"
-                                                    value="{{ @$itemscompanydetails->companyName }}">
-                                                @error('company_id')
-                                                    <p style="margin: 5px;">
-                                                    <div class="alert alert-danger mt-1">{{ $message }}</div>
-                                                    </p>
-                                                @enderror
-                                            </div>
-                                        @endif
+                                        <div class="col-sm-4">
+                                            <input type="number" name="company_id" value="1" class="form-control"
+                                                data-toggle="modal" data-target="#" placeholder="Select the company"
+                                                id="company_id" value="{{ @$itemsdetail->company_id }}">
+
+                                            @error('company_id')
+                                                <p style="margin: 5px;">
+                                                <div class="alert alert-danger mt-1">{{ $message }}</div>
+                                                </p>
+                                            @enderror
+                                        </div>
+
                                     </div>
                                     <div class="col-sm-offset-2">
                                         <button type="submit" class="btn btn-default">
@@ -755,7 +741,7 @@
 
         function putSubGroupNameAndGroupIdInTextField(subgroupId, sName) {
 
-          //  alert(subgroupName);
+            //  alert(subgroupName);
             $("#sub_groups_id").val(subgroupId);
             $("#subGroupName").val(sName);
             $("#myModalForSubGroup").modal('hide');

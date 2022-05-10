@@ -5,6 +5,8 @@ use App\Http\Controllers\ItemGroupController;
 use App\Http\Controllers\ItemSubGroupController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\InventoryStockController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +22,7 @@ Route::get('/', function () {
     return view('master.dashboard');
 });
 Route::get('/stockin', function () {
-    return view('master.stockin');
+    return view('instock.stockin');
 });
 
 // Route::get('/group', function () {
@@ -42,8 +44,8 @@ Route::post('/Gitemstore',[ItemGroupController::class,'groupitemstore']);
 Route::get('/edit-groupitem/{id}',[ItemGroupController::class,'groupitemedit']);
 Route::post('/update-groupitem',[ItemGroupController::class,'UpdateGroup'])->name('groupitem.update');
 Route::get('/delete-groupitem/{id}',[ItemGroupController::class,'DeleteGroup']);
-Route::get('/searchgroup',[ItemGroupController::class,'SearchGroup']);
-
+Route::get('/SearchGroupReturnInView',[ItemGroupController::class,'SearchGroupReturnInView']);
+Route::get('/searchgroup',[ItemGroupController::class,'searchgroup']);
 
 //subgroup items
 Route::get('/subgroup',[ItemSubGroupController::class,'addsubgroup'])->name('subgroup');
@@ -56,7 +58,7 @@ Route::post('/update-subgroupitem',[ItemSubGroupController::class,'UpdateSubGrou
 Route::get('/delete-subgroupitem/{id}',[ItemSubGroupController::class,'DeleteSubGroup']);
 Route::get('/searchsubgroup',[ItemSubGroupController::class,'SearchSubGroup']);
 Route::get('/selectgroupitem/{id}',[ItemSubGroupController::class,'selectgroupitem']);
-Route::get('/searchdata',[ItemSubGroupController::class,'SearchsubGroupitem']);
+// Route::get('/searchdata',[ItemSubGroupController::class,'SearchsubGroupitem']);
 Route::post('/searchsubgroupitems',[ItemSubGroupController::class,'SearchsubGroupitem']);
 //company 
 Route::get('/Company',[CompanyController::class,'addcompany']);
@@ -90,6 +92,10 @@ Route::post('/inventorysettingStore',[InventoryController::class,'inventorysetti
 Route::get('/searchitemsetting',[InventoryController::class,'searchitemsetting']);
 
 Route::get('/delete-itemsDetails/{id}',[InventoryController::class,'deleteitemsDetails']);
+
+
+//stock case
+Route::get('/searchforstockitem',[InventoryStockController::class,'searchforstockitem']);
 
 
 

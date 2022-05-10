@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('dummies', function (Blueprint $table) {
             $table->id();
             $table->integer('item_id');
-            $table->float('instock');
-            $table->float('outstock');
+            $table->float('instock')->default(0);
+            $table->float('outstock')->default(1);
             $table->date('date');
             $table->timestamps();
         });

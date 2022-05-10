@@ -88,7 +88,7 @@
 
         <div class="form-body">
             <div data-example-id="simple-form-inline">
-                <form class="form-inline" action="{{url('/searchgroup')}}" method="GET">
+                <form class="form-inline" action="{{url('/SearchGroupReturnInView')}}" method="GET">
                     @csrf 
                     <div class="form-group"> <input type="text" name="search" class="form-control" id="exampleInputEmail3" placeholder="Search group"> </div>
                     <button type="submit" class="btn btn-default">Search</button>

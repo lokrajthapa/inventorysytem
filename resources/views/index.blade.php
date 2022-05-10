@@ -29,7 +29,7 @@
 									<i class="fa fa-angle-left pull-right"></i>
 								</a>
 								<ul class="treeview-menu">
-									<li><a href="/addGitem"><i class="fa fa-angle-right"></i> Stock In</a></li>
+									<li><a href="{{ url('/stockin') }}"><i class="fa fa-angle-right"></i> Stock In</a></li>
 									<li><a href="#"><i class="fa fa-angle-right"></i> Stock Out</a></li>
 									<li><a href="#"><i class="fa fa-angle-right"></i>Stock Adjustment</a></li>
 								</ul>
@@ -75,7 +75,7 @@
 								</ul>
 							</li>
 							<li class="header">REPORTS</li>
-							<li><a href="#"><i class="fa fa-angle-right text-red"></i> <span>Stock Status</span></a>
+							<li><a href=""><i class="fa fa-angle-right text-red"></i> <span>Stock Status</span></a>
 							</li>
 							<li><a href="#"><i class="fa fa-angle-right text-yellow"></i> <span>Item-wise
 										stock</span></a></li>

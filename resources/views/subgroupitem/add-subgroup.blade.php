@@ -204,30 +204,30 @@
             document.getElementById('itemgroup_id').value='';
         }
 
-        function searchSubGroupItems() {
-            var searchKey = $("#searchData").val();
+        // function searchSubGroupItems() {
+        //     var searchKey = $("#searchData").val();
 
-            $.ajax({
-                url: "{{ url('searchdata') }}",
-                method: 'GET',
-                data: {
-                    query: searchKey
-                },
-                dataType: 'json',
-                success: function(response) {
-                    $("#displaySearchItems tbody").empty();
-                    for (var i = 0; i < response.length; i++) {
-                        var records = '<tr><th scope="row">' + response[i].id + '</th><td>' + response[i]
-                            .item_group.groupName + '</td><td>' + response[i].subGroupName + '</td><td>' +
-                            response[i].status + '</td><td><a href="/subgroup/' + response[i].id +
-                            '" class="btn btn-info">Edit </a> <a href="/delete-subgroupitem/' + response[i].id +
-                            '" class="btn btn-danger"> Delete </a> </td></tr>';
-                        $("#displaySearchItems tbody").append(records);
-                    }
-                }
+        //     $.ajax({
+        //         url: "{{ url('searchdata') }}",
+        //         method: 'GET',
+        //         data: {
+        //             query: searchKey
+        //         },
+        //         dataType: 'json',
+        //         success: function(response) {
+        //             $("#displaySearchItems tbody").empty();
+        //             for (var i = 0; i < response.length; i++) {
+        //                 var records = '<tr><th scope="row">' + response[i].id + '</th><td>' + response[i]
+        //                     .item_group.groupName + '</td><td>' + response[i].subGroupName + '</td><td>' +
+        //                     response[i].status + '</td><td><a href="/subgroup/' + response[i].id +
+        //                     '" class="btn btn-info">Edit </a> <a href="/delete-subgroupitem/' + response[i].id +
+        //                     '" class="btn btn-danger"> Delete </a> </td></tr>';
+        //                 $("#displaySearchItems tbody").append(records);
+        //             }
+        //         }
 
-            })
-        }
+        //     })
+        // }
 
 
 
