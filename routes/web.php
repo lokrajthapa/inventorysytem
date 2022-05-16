@@ -6,6 +6,8 @@ use App\Http\Controllers\ItemSubGroupController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\InventoryStockController;
+use App\Http\Controllers\StockOutController;
+
 
 
 /*
@@ -21,9 +23,9 @@ use App\Http\Controllers\InventoryStockController;
 Route::get('/', function () {
     return view('master.dashboard');
 });
-Route::get('/stockin', function () {
-    return view('instock.stockin');
-});
+// Route::get('/stockin', function () {
+//     return view('instock.stockin');
+// });
 
 // Route::get('/group', function () {
 //     return view('master.itemGroup');
@@ -94,8 +96,34 @@ Route::get('/searchitemsetting',[InventoryController::class,'searchitemsetting']
 Route::get('/delete-itemsDetails/{id}',[InventoryController::class,'deleteitemsDetails']);
 
 
-//stock case
+//stock In case
+Route::get('/stockin',[InventoryStockController::class,'index']);
+Route::get('/stockin/{id}',[InventoryStockController::class,'itemsedit']);
+Route::get('/stockindelete/{id}',[InventoryStockController::class,'stockindelete']);
+
+
+
 Route::get('/searchforstockitem',[InventoryStockController::class,'searchforstockitem']);
+Route::post('/stockitemstoredummy',[InventoryStockController::class,'stockitemstore']);
+
+
+//stock Out case
+Route::get('/stockOut',[StockOutController::class,'index']);
+Route::get('/stockOut/{id}',[StockOutController::class,'itemsedit']);
+Route::get('/stockoutdelete/{id}',[StockOutController::class,'stockoutdelete']);
+
+
+//Route::get('/searchforstockitem',[StockOutController::class,'searchforstockitem']);
+
+
+
+
+Route::post('/stockitemstoredummysecond',[StockOutController::class,'stockitemstore']);
+
+
+
+
+
 
 
 

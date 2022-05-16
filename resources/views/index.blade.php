@@ -30,7 +30,7 @@
 								</a>
 								<ul class="treeview-menu">
 									<li><a href="{{ url('/stockin') }}"><i class="fa fa-angle-right"></i> Stock In</a></li>
-									<li><a href="#"><i class="fa fa-angle-right"></i> Stock Out</a></li>
+									<li><a href="{{ url('/stockOut') }}"><i class="fa fa-angle-right"></i> Stock Out</a></li>
 									<li><a href="#"><i class="fa fa-angle-right"></i>Stock Adjustment</a></li>
 								</ul>
 							</li>

@@ -5,7 +5,7 @@
 
 	<!-- Classie -->
 	<!-- for toggle left push menu script -->
-	<script src="web/js/classie.js"></script>
+	<script src="{{ asset('web/js/classie.js')}}"></script>
 	<script>
 		var menuLeft = document.getElementById('cbp-spmenu-s1'),
 			showLeftPush = document.getElementById('showLeftPush'),
@@ -29,19 +29,19 @@
 	<!-- //for toggle left push menu script -->
 
 	<!--scrolling js-->
-	<script src="web/js/jquery.nicescroll.js"></script>
-	<script src="web/js/scripts.js"></script>
+	<script src="{{ asset('web/js/jquery.nicescroll.js')}}"></script>
+	<script src="{{ asset('web/js/scripts.js')}}"></script>
 	<!--//scrolling js-->
 
 	<!-- side nav js -->
-	<script src='web/js/SidebarNav.min.js' type='text/javascript'></script>
+	<script src="{{ asset('web/js/SidebarNav.min.js')}}" type='text/javascript'></script>
 	<script>
 		$('.sidebar-menu').SidebarNav()
 	</script>
 	<!-- //side nav js -->
 
 	<!-- for index page weekly sales java script -->
-	<script src="web/js/SimpleChart.js"></script>
+	<script src="{{ asset('web/js/SimpleChart.js')}}"></script>
 	<script>
 		var graphdata1 = {
 			linecolor: "#CCA300",
@@ -590,5 +590,5 @@
 
 
 	<!-- Bootstrap Core JavaScript -->
-	<script src="web/js/bootstrap.js"> </script>
+	<script src="{{ asset('web/js/bootstrap.js')}}"> </script>
 	<!-- //Bootstrap Core JavaScript -->

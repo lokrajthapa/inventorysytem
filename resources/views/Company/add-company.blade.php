@@ -179,7 +179,7 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach ($companies as $company)
+            @foreach (@$companies as $company)
                 <tr>
                     <th scope="row">{{ $company->id  }}</th>
                     <td>{{ $company->companyName }}</td>

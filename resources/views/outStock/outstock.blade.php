@@ -8,7 +8,7 @@
                 <div class=" form-grids row form-grids-right">
                     <div class="widget-shadow " data-example-id="basic-forms">
                         <div class="form-title">
-                            <h4>Stock In</h4>
+                            <h4>Stock Out</h4>
                         </div>
                         <div class="form-body">
                             <form class="form-horizontal" action="" method="POST">
@@ -53,7 +53,7 @@
                             <h4>Items</h4>
                         </div>
                         <div class="form-body">
-                            <form class="form-horizontal" action="{{ url('/stockitemstoredummy') }}" method="POST">
+                            <form class="form-horizontal" action="{{ url('/stockitemstoredummysecond') }}" method="POST">
                                 @csrf
 
                                 <input type="hidden" name="id" value="{{ @$dummydata[0]->id }}">
@@ -132,24 +132,26 @@
                         </tr>
                     </thead>
                     <tbody>
+                      
                         @foreach ($itemsdummy as $item)
-                            <tr>
-                                <th scope="row">{{ $item->id }}</th>
-                                <td>{{ $item->units }}</td>
+                        <tr>
+                            <th scope="row">{{ $item->id }}</th>
+                            <td>{{ $item->units }}</td>
 
-                                <td>{{ $item->instock }}</td>
-                                <td>{{ $item->rate }}</td>
+                            <td>{{ $item->instock }}</td>
+                            <td>{{ $item->rate }}</td>
 
 
-                                <td>
-                                    <a href="/stockin/{{ $item->id }}" class="btn btn-info">Edit </a>
-                                    <a href="/stockindelete/{{ $item->id }}" class="btn btn-danger"
-                                        onclick="return confirm('Are you sure you want to delete this item ?');"> Delete
-                                    </a>
+                            <td>
+                                <a href="/stockOut/{{ $item->id }}" class="btn btn-info">Edit </a>
+                                <a href="/stockoutdelete/{{ $item->id }}" class="btn btn-danger"
+                                    onclick="return confirm('Are you sure you want to delete this item ?');"> Delete
+                                </a>
 
-                                </td>
-                            </tr>
-                        @endforeach
+                            </td>
+                        </tr>
+                    @endforeach
+                   
 
                     </tbody>
                 </table>
