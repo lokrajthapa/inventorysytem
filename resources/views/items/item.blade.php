@@ -207,10 +207,12 @@
                                             Company
                                         </label>
                                         <div class="col-sm-4">
+                                            
 
                                             <input type="text" name="company_id" class="form-control" data-toggle="modal"
                                                 data-target="#" readonly placeholder="Select the company"
                                                 value="{{ @$itemscompanydetails->companyName }}">
+                                              
                                             @error('company_id')
                                                 <p style="margin: 5px;">
                                                 <div class="alert alert-danger mt-1">{{ $message }}</div>
@@ -506,7 +508,7 @@
                                             Company
                                         </label>
 
-                                        <div class="col-sm-4">
+                                        {{-- <div class="col-sm-4">
                                             <input type="number" name="company_id" value="1" class="form-control"
                                                 data-toggle="modal" data-target="#" placeholder="Select the company"
                                                 id="company_id" value="{{ @$itemsdetail->company_id }}">
@@ -516,7 +518,29 @@
                                                 <div class="alert alert-danger mt-1">{{ $message }}</div>
                                                 </p>
                                             @enderror
-                                        </div>
+                                        </div> --}}
+                                        {{-- {{
+                                            $itemscompanydetails->companyName
+                                        }} --}}
+
+                                         <div class="col-sm-4">
+
+                                            <select name="company_id" class="form-select form-select-sm"  style="font-size: 130%; width:100%; height:100%;"  class="col-sm-1 control-label">
+                                                @if (\Request::is('itemsDetailsEdit/*'))
+                                                <option value="{{ @$itemscompanydetails->id }}" class="form-control" >{{ @$itemscompanydetails ->companyName ?? ''}} </option>
+                                                @endif
+                                               
+                                                @foreach (@$companies as $company )
+                                                <option value="{{ @$company->id }}" >{{ @$company ->companyName ?? ''}} </option>
+                                                @endforeach                          
+                                            </select>
+
+                                            @error('company_id')
+                                                <p style="margin: 5px;">
+                                                <div class="alert alert-danger mt-1">{{ $message }}</div>
+                                                </p>
+                                            @enderror
+                                        </div> 
 
                                     </div>
                                     <div class="col-sm-offset-2">

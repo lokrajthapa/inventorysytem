@@ -18,8 +18,9 @@ class InventoryController extends Controller
         return view('items.item', compact('itemsdetails'));
     }
     public function additemdetails()
-    {
-        return view('items.item');
+    {  
+        $companies = Company::all();
+        return view('items.item',compact('itemscompanydetails'));
     }
     public function additemunitdetails($id)
     {
@@ -35,6 +36,7 @@ class InventoryController extends Controller
 
 
         $itemsdetail = Inventorysetting::FindorFail($separatedid[0]);
+        
         $itemsunitdetails = InventorysettingDetails::orderBy("id", "desc")->take(10)->get();
 
         return view('items.item', compact('itemsunitdetails', 'itemsdetail', 'itemsgroupDetails', 'itemssubgroupdetails', 'itemscompanydetails'));
@@ -93,9 +95,9 @@ class InventoryController extends Controller
         $itemssubgroupdetails = itemSubGroup::FindorFail($separatedid[2]);
 
         $itemscompanydetails = Company::FindorFail($separatedid[3]);
+        $companies = Company::where('id', '!=' , $separatedid[3])->get();
 
-
-
+//($itemscompanydetails);
 
         //     $itemsdetail=Inventorysetting::FindorFail(1); 
         //    // dd($itemsdetail);
@@ -104,7 +106,7 @@ class InventoryController extends Controller
         //     // dd( $itemsgroupDetails);       
         //     $itemssubgroupdetails=itemSubGroup::FindorFail(2); 
 
-        return view('items.item', compact('itemsdetail', 'itemsgroupDetails', 'itemssubgroupdetails', 'itemscompanydetails'));
+        return view('items.item', compact('itemsdetail', 'itemsgroupDetails', 'itemssubgroupdetails', 'itemscompanydetails','companies'));
 
 
         //return view('items.item',compact('itemsdetail','itemsgroupDetails','itemssubgroupdetails'));

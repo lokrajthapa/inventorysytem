@@ -69,19 +69,27 @@
 									<i class="fa fa-angle-left pull-right"></i>
 								</a>
 								<ul class="treeview-menu">
-									<li><a href="#"><i class="fa fa-angle-right"></i>Company Info</a></li>
+									<li><a href="{{ url('/companyInfo')}}"><i class="fa fa-angle-right"></i>Company Info</a></li>
 									<li><a href="#"><i class="fa fa-angle-right"></i> Print Setting</a></li>
 									<li><a href="#"><i class="fa fa-angle-right"></i> Reminder Setting</a></li>
+									<li><a href="{{ url('/facialyear')}}"><i class="fa fa-angle-right"></i> Facial year</a></li>
+
 								</ul>
 							</li>
 							<li class="header">REPORTS</li>
 							<li><a href=""><i class="fa fa-angle-right text-red"></i> <span>Stock Status</span></a>
 							</li>
-							<li><a href="#"><i class="fa fa-angle-right text-yellow"></i> <span>Item-wise
-										stock</span></a></li>
-							<li><a href="#"><i class="fa fa-angle-right text-aqua"></i> <span>Group-wise
-										stock</span></a>
-							</li>
+							<li><a href="{{ url('/reports')}}"><i class="fa fa-angle-right text-yellow"></i> <span>Report
+										</span></a></li>
+							<li><a href="{{ url('/instock')}}"><i class="fa fa-angle-right text-aqua"></i> <span>In Stock</span></a></li>
+							<li><a href="{{ url('/outstock')}}"><i class="fa fa-angle-right text-aqua"></i> <span>Out Stock</span></a></li>
+							<li><a href="{{ url('/itemwisestock')}}"><i class="fa fa-angle-right text-aqua"></i> <span>Item wise stock</span></a></li>
+							<li><a href="{{ url('/Groupwisestock')}}"><i class="fa fa-angle-right text-aqua"></i> <span>Group wise stock</span></a></li>
+							<li><a href="{{ url('/SubGroupwisestock')}}"><i class="fa fa-angle-right text-aqua"></i> <span>Sub Group wise stock</span></a></li>
+
+
+
+
 						</ul>
 					</div>
 					<!-- /.navbar-collapse -->
@@ -123,7 +131,14 @@
 								<li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
 								<li> <a href="#"><i class="fa fa-user"></i> My Account</a> </li>
 								<li> <a href="#"><i class="fa fa-suitcase"></i> Profile</a> </li>
-								<li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
+								<li>
+									<div>
+										<form method="post" action="{{ route('logout')}}" >
+										   @csrf
+											   <a href="{{route('logout')}}"  class="hvr-bounce-to-right" onclick="event.preventDefault(); this.closest('form').submit();"><i class="fa fa-cog nav_icon"></i> <span class="nav-label" style="padding-left:px"> Logout </span>  </a>				   
+										</form>
+									   </div>
+								</li>
 							</ul>
 						</li>
 					</ul>

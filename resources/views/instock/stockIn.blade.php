@@ -21,12 +21,14 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <input type="date" class="form-control" name="date" placeholder="Item Name"
-                                            value="">
+                                            >
+                                           
                                     </div>
                                     <div class="col-sm-1">
                                         <label for="vatable" class="col-sm-1 control-label">
-                                            SN
+                                         
                                         </label>
+                                     
                                     </div>
                                     <div class="col-sm-4">
                                         <input type="text" readonly="" class="form-control" name="vatable"
